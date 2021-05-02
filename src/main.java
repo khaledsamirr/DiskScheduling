@@ -44,12 +44,18 @@ public class main {
         int next = 0;
         int idx = 0;
         int counter = 0;
+        boolean f=false;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] < p) {
                 next = arr[i];
                 idx = i;
                 counter = i;
+                f=true;
             }
+        }
+        if(!f){
+            counter=idx=1;
+            next=arr[0];
         }
         boolean flag = true;
         for (int i = 0; i < q.length; i++) {
@@ -57,7 +63,7 @@ public class main {
             point = Math.abs(next - back);
             back = next;
             if (i < q.length - 1) {
-                if (flag) {
+                if (flag&&f) {
                     counter--;
                     next = arr[counter];
                 } else {
@@ -283,7 +289,7 @@ public class main {
         int pointer = m.nextInt();
         FCFS(queue, pointer);
         SSTF(q, pointer);
-        //SCAN(queue, pointer);
+        SCAN(queue, pointer);
         circularScan(queue, pointer);
         look(queue, pointer);
 
