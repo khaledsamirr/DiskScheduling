@@ -194,6 +194,71 @@ public class main {
 
     }
 
+    public static void look(String[] q, int p) {
+        System.out.println("LOOK algorithm sequence:........");
+        System.out.print(p + "->");
+        int sum = 0;
+        int size = q.length;
+        int[] arr = new int[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = Integer.parseInt(q[i]);
+        }
+        Arrays.sort(arr);
+        int max = roundUp(arr[arr.length - 1], 100) - 1;
+
+        int index;
+        for (index = 0; index < arr.length; index++) {
+            if (p < arr[index]) {
+                break;
+            }
+        }
+
+
+        int initialIndex = index - 1;
+
+        boolean reverseFlag = false;
+        int i = 0;
+        while (i < arr.length) {
+
+            if (index != arr.length) {
+                System.out.print(arr[index]);
+            } else {
+                System.out.print(arr[initialIndex]);
+            }
+            if (i + 1 != arr.length) {
+                System.out.print("->");
+            }
+
+            if (i == 0) {
+                if (index != arr.length) {
+                    sum += arr[index] - p;
+                    index++;
+                } else {
+                    sum += p - arr[initialIndex];
+                    initialIndex--;
+                }
+            } else if (index != arr.length && reverseFlag == false) {
+                sum += arr[index] - arr[index - 1];
+                index++;
+            } else {
+                if (reverseFlag == false) {
+                    sum += arr[index - 1] - arr[initialIndex];
+                }
+
+                if (initialIndex - 1 != -1) {
+                    sum += arr[initialIndex] - arr[initialIndex - 1];
+                }
+
+                initialIndex--;
+                reverseFlag = true;
+            }
+            i++;
+        }
+        System.out.println();
+        System.out.println("The total head movement: " + sum + " Cylinders.");
+        System.out.println("-------------------------------------------------");
+    }
+
     static int roundUp(int n, int approximate) {
         int a = (n / approximate) * approximate;
 
@@ -220,7 +285,7 @@ public class main {
         SSTF(q, pointer);
         //SCAN(queue, pointer);
         circularScan(queue, pointer);
-
+        look(queue, pointer);
 
     }
 }
