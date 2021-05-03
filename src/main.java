@@ -273,6 +273,35 @@ public class main {
         return b;
     }
 
+    public static void OptimizedAlgorithm(String[] q) {
+        System.out.println("Optimized Algorithm algorithm sequence:........");
+        System.out.print(0 + "->");
+        int sum = 0;
+        int point = 0;
+        int back = 0;
+        int size = q.length;
+        int[] arr = new int[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = Integer.parseInt(q[i]);
+        }
+        Arrays.sort(arr);
+        int next = 0;
+        for (int i = 0; i < arr.length; i++) {
+            next=arr[i];
+            System.out.print(next);
+            point = Math.abs(next - back);
+            back = next;
+            sum += point;
+            if (i < q.length - 1)
+                System.out.print("->");
+            else
+                System.out.println("");
+        }
+        System.out.println("The total head movement: " + sum + " Cylinders.");
+        System.out.println("-------------------------------------------------");
+    }
+
+
     public static void main(String args[]) {
 
         System.out.println("Enter input queue:");
@@ -292,6 +321,7 @@ public class main {
         SCAN(queue, pointer);
         circularScan(queue, pointer);
         look(queue, pointer);
+        OptimizedAlgorithm(queue);
 
     }
 }
