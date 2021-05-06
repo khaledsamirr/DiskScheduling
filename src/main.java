@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.function.IntPredicate;
+
+import static java.lang.Math.abs;
 
 class node {
     boolean accessed = false;
@@ -17,7 +20,7 @@ public class main {
         int back = p;
         for (int i = 0; i < q.length; i++) {
             System.out.print(q[i]);
-            point = Math.abs(Integer.parseInt(q[i]) - back);
+            point = abs(Integer.parseInt(q[i]) - back);
             back = Integer.parseInt(q[i]);
             sum += point;
             if (i < q.length - 1)
@@ -44,26 +47,26 @@ public class main {
         int next = 0;
         int idx = 0;
         int counter = 0;
-        boolean f=false;
+        boolean f = false;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] < p) {
                 next = arr[i];
                 idx = i;
                 counter = i;
-                f=true;
+                f = true;
             }
         }
-        if(!f){
-            counter=idx=1;
-            next=arr[0];
+        if (!f) {
+            counter = idx = 1;
+            next = arr[0];
         }
         boolean flag = true;
         for (int i = 0; i < q.length; i++) {
             System.out.print(next);
-            point = Math.abs(next - back);
+            point = abs(next - back);
             back = next;
             if (i < q.length - 1) {
-                if (flag&&f) {
+                if (flag && f) {
                     counter--;
                     next = arr[counter];
                 } else {
@@ -88,7 +91,7 @@ public class main {
         ArrayList<Integer> m = new ArrayList<Integer>();
         for (int i = 0; i < queue.size(); i++) {
             if (queue.get(i).accessed != true) {
-                m.add(Math.abs(Integer.parseInt(queue.get(i).distance) - head));
+                m.add(abs(Integer.parseInt(queue.get(i).distance) - head));
             } else
                 m.add(-1);
         }
@@ -122,7 +125,7 @@ public class main {
             req = Integer.parseInt(q.get(findminSSTF(q, back)).distance);
             q.get(findminSSTF(q, back)).accessed = true;
             System.out.print(req);
-            point = Math.abs(req - back);
+            point = abs(req - back);
             back = req;
             sum += point;
             if (i < q.size() - 1)
@@ -170,9 +173,9 @@ public class main {
             }
             if (index != 0) {
                 if (i == 0) {
-                    sum += arr[index] - p;
+                    sum += abs(arr[index] - p);
                 } else {
-                    sum += arr[index] - arr[index - 1];
+                    sum += abs(arr[index] - arr[index - 1]);
                 }
             } else {
                 sum += arr[index];
@@ -185,7 +188,6 @@ public class main {
                     System.out.print(max + "->" + "0");
                     System.out.print("->");
                 }
-
                 sum += max - arr[index];
                 index = 0;
                 sum += max;
@@ -237,22 +239,22 @@ public class main {
 
             if (i == 0) {
                 if (index != arr.length) {
-                    sum += arr[index] - p;
+                    sum += abs(arr[index] - p);
                     index++;
                 } else {
                     sum += p - arr[initialIndex];
                     initialIndex--;
                 }
             } else if (index != arr.length && reverseFlag == false) {
-                sum += arr[index] - arr[index - 1];
+                sum += abs(arr[index] - arr[index - 1]);
                 index++;
             } else {
                 if (reverseFlag == false) {
-                    sum += arr[index - 1] - arr[initialIndex];
+                    sum += abs(arr[index - 1] - arr[initialIndex]);
                 }
 
                 if (initialIndex - 1 != -1) {
-                    sum += arr[initialIndex] - arr[initialIndex - 1];
+                    sum += abs(arr[initialIndex] - arr[initialIndex - 1]);
                 }
 
                 initialIndex--;
@@ -287,9 +289,9 @@ public class main {
         Arrays.sort(arr);
         int next = 0;
         for (int i = 0; i < arr.length; i++) {
-            next=arr[i];
+            next = arr[i];
             System.out.print(next);
-            point = Math.abs(next - back);
+            point = abs(next - back);
             back = next;
             sum += point;
             if (i < q.length - 1)
@@ -301,6 +303,81 @@ public class main {
         System.out.println("-------------------------------------------------");
     }
 
+    public static boolean searchArray(int[] arr, int value) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void circularLook(String[] q, int p) {
+        System.out.println("C-LOOK algorithm sequence:........");
+        System.out.print(p + "->");
+        int sum = 0;
+        int size = q.length;
+        int[] arr = new int[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = Integer.parseInt(q[i]);
+        }
+        Arrays.sort(arr);
+        int max = arr[arr.length - 1];
+
+        int index;
+        for (index = 0; index < arr.length; index++) {
+            if (p < arr[index]) {
+                break;
+            }
+        }
+        if (index == arr.length) {
+            index = 0;
+        }
+
+        int initialIndex = index - 1;
+        int i = 0;
+        int len = arr.length;
+
+        if (searchArray(arr, p)) {
+            len--;
+        }
+        while (i < len) {
+
+            if (index != arr.length) {
+                System.out.print(arr[index]);
+
+                if (i + 1 != len) {
+
+                    System.out.print("->");
+                }
+            }
+
+            if (i == 0) {
+                sum += abs(arr[index] - p);
+            } else {
+                if (index == arr.length) {
+                    index = 0;
+                    sum += abs(arr[index] - arr[arr.length - 1]);
+                    System.out.print(arr[index]);
+
+                    if (i + 1 != arr.length) {
+                        System.out.print("->");
+                    }
+                } else {
+                    sum += abs(arr[index] - arr[index - 1]);
+                }
+            }
+            index++;
+            i++;
+        }
+
+
+        System.out.println();
+        System.out.println("The total head movement: " + sum + " Cylinders.");
+        System.out.println("-------------------------------------------------");
+
+
+    }
 
     public static void main(String args[]) {
 
@@ -321,6 +398,7 @@ public class main {
         SCAN(queue, pointer);
         circularScan(queue, pointer);
         look(queue, pointer);
+        circularLook(queue, pointer);
         OptimizedAlgorithm(queue);
 
     }
