@@ -67,8 +67,15 @@ public class main {
             back = next;
             if (i < q.length - 1) {
                 if (flag && f) {
-                    counter--;
-                    next = arr[counter];
+                    if(next!=arr[0]){
+                        counter--;
+                         next = arr[counter];
+                    }
+                    else {
+                        flag = false;
+                        counter++;
+                        next=arr[counter++];
+                    }
                 } else {
                     next = arr[counter++];
                 }
