@@ -39,10 +39,10 @@ public class main {
         int point = 0;
         int back = p;
         int size = q.length;
-        int[] arr = new int[size+1];
-        arr[0]=0;
+        int[] arr = new int[size + 1];
+        arr[0] = 0;
         for (int i = 1; i <= size; i++) {
-            arr[i] = Integer.parseInt(q[i-1]);
+            arr[i] = Integer.parseInt(q[i - 1]);
         }
         Arrays.sort(arr);
         int next = 0;
@@ -61,10 +61,12 @@ public class main {
             counter = idx = 1;
             next = arr[0];
         }
-        int c=0;
+        int c = 0;
         boolean flag = true;
         for (int i = 0; i < arr.length; i++) {
-            System.out.print(next);
+            if (next != p) {
+                System.out.print(next);
+            }
             point = abs(next - back);
             back = next;
             if (i < arr.length - 1) {
@@ -75,7 +77,7 @@ public class main {
                         c++;
                     } else {
                         flag = false;
-                        next=arr[++c];
+                        next = arr[++c];
                         c++;
                     }
                 } else {
@@ -87,10 +89,13 @@ public class main {
                 flag = false;
             }
             sum += point;
-            if (i < arr.length - 1)
-                System.out.print("->");
-            else
+            if (i < arr.length - 1) {
+                if (next != p) {
+                    System.out.print("->");
+                }
+            } else {
                 System.out.println("");
+            }
         }
         System.out.println("The total head movement: " + sum + " Cylinders.");
         System.out.println("-------------------------------------------------");
