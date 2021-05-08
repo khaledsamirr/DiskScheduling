@@ -67,14 +67,13 @@ public class main {
             back = next;
             if (i < q.length - 1) {
                 if (flag && f) {
-                    if(next!=arr[0]){
+                    if (next != arr[0]) {
                         counter--;
-                         next = arr[counter];
-                    }
-                    else {
+                        next = arr[counter];
+                    } else {
                         flag = false;
                         counter++;
-                        next=arr[counter++];
+                        next = arr[counter++];
                     }
                 } else {
                     next = arr[counter++];
@@ -166,42 +165,54 @@ public class main {
         if (index == arr.length) {
             index = 0;
         }
+        int len = arr.length;
+
+        if (searchArray(arr, p)) {
+            len--;
+        }
 
         int i = 0;
-        while (i < arr.length) {
-            if (arr[arr.length - 1] < p && i == 0) {
-                System.out.print("0" + "->");
-            }
+        while (i < len) {
 
-            System.out.print(arr[index]);
 
-            if (i + 1 != arr.length) {
-                System.out.print("->");
-            }
-            if (index != 0) {
-                if (i == 0) {
-                    sum += abs(arr[index] - p);
-                } else {
-                    sum += abs(arr[index] - arr[index - 1]);
-                }
+            if (p > arr[arr.length - 1]) {
+                sum += abs(max - 0);
+                System.out.print("0->");
+                p = 0;
             } else {
-                sum += arr[index];
-            }
-            if (index + 1 == arr.length) {
-                if (i + 1 != arr.length) {
-                    if (i + 1 == arr.length) {
+
+                if (index != arr.length) {
+                    System.out.print(arr[index]);
+                    if (i + 1 != len) {
                         System.out.print("->");
                     }
-                    System.out.print(max + "->" + "0");
-                    System.out.print("->");
                 }
-                sum += max - arr[index];
-                index = 0;
-                sum += max;
-            } else {
-                index++;
+
+
+                if (index != arr.length) {
+                    if (index != 0) {
+                        if (i == 0) {
+                            sum += abs(arr[index] - p);
+                            index++;
+                        } else {
+                            sum += abs(arr[index] - arr[index - 1]);
+                            index++;
+                        }
+                    } else {
+                        sum += arr[index];
+                        index++;
+                    }
+                    i++;
+                } else {
+                    sum += abs(max - arr[index - 1]);
+                    System.out.print(max + "->");
+                    sum += abs(max - 0);
+                    index = 0;
+                    System.out.print("0->");
+                }
+
             }
-            i++;
+
         }
         System.out.println();
         System.out.println("The total head movement: " + sum + " Cylinders.");
@@ -236,13 +247,21 @@ public class main {
         while (i < arr.length) {
 
             if (index != arr.length) {
-                System.out.print(arr[index]);
+                if (arr[index] != p) {
+                    System.out.print(arr[index]);
+                    if (i + 1 != arr.length) {
+                        System.out.print("->");
+                    }
+                }
             } else {
-                System.out.print(arr[initialIndex]);
+                if (arr[initialIndex] != p) {
+                    System.out.print(arr[initialIndex]);
+                    if (i + 1 != arr.length) {
+                        System.out.print("->");
+                    }
+                }
             }
-            if (i + 1 != arr.length) {
-                System.out.print("->");
-            }
+
 
             if (i == 0) {
                 if (index != arr.length) {
@@ -341,7 +360,6 @@ public class main {
             index = 0;
         }
 
-        int initialIndex = index - 1;
         int i = 0;
         int len = arr.length;
 
@@ -400,13 +418,16 @@ public class main {
         }
         System.out.println("Enter Head pointer:");
         int pointer = m.nextInt();
-        FCFS(queue, pointer);
-        SSTF(q, pointer);
-        SCAN(queue, pointer);
+        // FCFS(queue, pointer);
+        // SSTF(q, pointer);
+        // SCAN(queue, pointer);
         circularScan(queue, pointer);
-        look(queue, pointer);
-        circularLook(queue, pointer);
-        OptimizedAlgorithm(queue);
+        // look(queue, pointer);
+        // circularLook(queue, pointer);
+        // OptimizedAlgorithm(queue);
 
     }
 }
+
+//98,183,37,122,14,124,65,67
+//53
