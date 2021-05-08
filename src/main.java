@@ -418,16 +418,13 @@ public class main {
         }
         System.out.println("Enter Head pointer:");
         int pointer = m.nextInt();
-        // FCFS(queue, pointer);
-        // SSTF(q, pointer);
-        // SCAN(queue, pointer);
+        FCFS(queue, pointer);
+        SSTF(q, pointer);
+        SCAN(queue, pointer);
         circularScan(queue, pointer);
-        // look(queue, pointer);
-        // circularLook(queue, pointer);
-        // OptimizedAlgorithm(queue);
+        look(queue, pointer);
+        circularLook(queue, pointer);
+        OptimizedAlgorithm(queue);
 
     }
 }
-
-//98,183,37,122,14,124,65,67
-//53
